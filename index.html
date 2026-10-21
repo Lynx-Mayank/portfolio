@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mayank Shanbhag — Backend Developer</title>
+<meta name="description" content="Backend developer building scalable APIs with Python, FastAPI, SQL and cloud. Portfolio of Mayank Shanbhag (Lynx-Mayank)." />
+<meta name="theme-color" content="#07070c" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#07070c; --bg2:#0d0d16; --card:#11111c; --line:#23233a;
+  --text:#ececf5; --mute:#8b8ba7;
+  --a:#7c5cff; --b:#22d3ee; --c:#f472b6;
+  --grad:linear-gradient(120deg,var(--a),var(--b));
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+  --sans:'Space Grotesk',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.6;overflow-x:hidden;cursor:none}
+@media (hover:none),(pointer:coarse){body{cursor:auto}.cursor,.cursor-dot{display:none}}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:none}
+@media (hover:none),(pointer:coarse){button{cursor:pointer}}
+::selection{background:var(--a);color:#fff}
+::-webkit-scrollbar{width:8px}::-webkit-scrollbar-thumb{background:var(--line);border-radius:8px}
+
+#bg{position:fixed;inset:0;z-index:-2}
+.grain{position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(60% 40% at 50% 0%,rgba(124,92,255,.14),transparent 70%)}
+.cursor,.cursor-dot{position:fixed;top:0;left:0;pointer-events:none;z-index:9999;border-radius:50%;transform:translate(-50%,-50%)}
+.cursor{width:38px;height:38px;border:1.5px solid rgba(255,255,255,.5);transition:width .2s,height .2s,background .2s,border-color .2s;mix-blend-mode:difference}
+.cursor.hover{width:70px;height:70px;background:rgba(255,255,255,.15)}
+.cursor-dot{width:6px;height:6px;background:var(--b)}
+#progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--grad);z-index:200}
+
+/* NAV */
+nav{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:100;display:flex;gap:4px;padding:6px;border:1px solid var(--line);border-radius:999px;background:rgba(13,13,22,.7);backdrop-filter:blur(14px)}
+nav a{padding:8px 16px;border-radius:999px;font-size:.88rem;color:var(--mute);transition:.25s}
+nav a:hover{color:#fff}
+nav a.active{background:var(--grad);color:#fff}
+@media(max-width:560px){nav a{padding:7px 10px;font-size:.78rem}}
+
+section{padding:120px 6vw;max-width:1280px;margin:auto;position:relative}
+.eyebrow{font-family:var(--mono);font-size:.8rem;color:var(--b);letter-spacing:.15em;text-transform:uppercase;margin-bottom:10px}
+h2.title{font-size:clamp(2rem,5vw,3.4rem);line-height:1.1;margin-bottom:14px;letter-spacing:-.02em}
+.sub{color:var(--mute);max-width:620px;margin-bottom:48px}
+.grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(32px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* HERO */
+#hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding-top:140px}
+.wave{display:inline-block;transform-origin:70% 70%;animation:wave 2.2s infinite}
+@keyframes wave{0%,60%,100%{transform:rotate(0)}10%,30%{transform:rotate(16deg)}20%,40%{transform:rotate(-10deg)}50%{transform:rotate(8deg)}}
+.hello{font-size:1.1rem;color:var(--mute);margin-bottom:12px}
+h1{font-size:clamp(2.8rem,9vw,7rem);line-height:1;letter-spacing:-.04em;font-weight:700}
+h1 .name{display:inline-block;cursor:none}
+h1 .name span{display:inline-block;transition:transform .25s,color .25s}
+h1 .name span:hover{transform:translateY(-10px) rotate(-4deg);color:var(--b)}
+.role{margin-top:22px;font-size:clamp(1.1rem,2.6vw,1.7rem);color:var(--mute);min-height:2.2em}
+.role b{color:var(--text);font-weight:600}
+.caret{display:inline-block;width:3px;height:1.1em;background:var(--b);margin-left:4px;vertical-align:-3px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.cta{display:flex;gap:14px;margin-top:36px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 26px;border-radius:999px;font-weight:600;border:1px solid var(--line);transition:.3s;position:relative;overflow:hidden}
+.btn.primary{background:var(--grad);border:0;color:#fff;box-shadow:0 10px 40px -10px var(--a)}
+.btn:hover{transform:translateY(-3px)}
+.socials{display:flex;gap:12px;margin-top:40px}
+.socials a{width:46px;height:46px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;transition:.3s;background:var(--bg2)}
+.socials a:hover{border-color:var(--b);transform:translateY(-5px) rotate(8deg);box-shadow:0 8px 24px -8px var(--b)}
+.socials svg{width:20px;height:20px;fill:currentColor}
+.scrollhint{position:absolute;bottom:30px;left:6vw;font-family:var(--mono);font-size:.75rem;color:var(--mute);display:flex;align-items:center;gap:10px}
+.scrollhint i{width:1px;height:40px;background:linear-gradient(var(--b),transparent);animation:drip 2s infinite}
+@keyframes drip{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* MARQUEE */
+.marquee{overflow:hidden;border-block:1px solid var(--line);padding:18px 0;background:var(--bg2);mask:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
+.track{display:flex;gap:44px;width:max-content;animation:scroll 40s linear infinite;font-family:var(--mono);color:var(--mute);font-size:1rem}
+.marquee:hover .track{animation-play-state:paused}
+.track span{white-space:nowrap;transition:.2s}.track span:hover{color:var(--b)}
+.track span::before{content:"✦";color:var(--a);margin-right:44px}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+/* ABOUT + TERMINAL */
+.about-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:40px;align-items:start}
+@media(max-width:900px){.about-grid{grid-template-columns:1fr}}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.tab{padding:8px 16px;border:1px solid var(--line);border-radius:999px;font-size:.88rem;color:var(--mute);transition:.25s}
+.tab.on,.tab:hover{color:#fff;border-color:var(--a);background:rgba(124,92,255,.15)}
+.tabpanel{min-height:130px;font-size:1.12rem;color:#cfcfe6;border-left:2px solid var(--a);padding-left:18px;animation:fade .4s}
+@keyframes fade{from{opacity:0;transform:translateX(-8px)}}
+.fun{margin-top:24px;padding:16px 18px;border:1px dashed var(--line);border-radius:14px;color:var(--mute);font-size:.95rem}
+.term{background:#0a0a12;border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 30px 80px -30px rgba(124,92,255,.4);font-family:var(--mono);font-size:.86rem}
+.term-bar{display:flex;align-items:center;gap:7px;padding:12px 16px;background:#14141f;border-bottom:1px solid var(--line)}
+.term-bar i{width:12px;height:12px;border-radius:50%}
+.term-bar i:nth-child(1){background:#ff5f57}.term-bar i:nth-child(2){background:#febc2e}.term-bar i:nth-child(3){background:#28c840}
+.term-bar span{margin-left:auto;color:var(--mute);font-size:.75rem}
+.term-body{padding:16px;height:330px;overflow-y:auto;color:#cfd0e8}
+.term-body .ln{white-space:pre-wrap;word-break:break-word;margin-bottom:2px}
+.term-body .p{color:var(--b)}.term-body .g{color:#4ade80}.term-body .m{color:var(--mute)}.term-body .y{color:#fbbf24}
+.term-body a{color:var(--c);text-decoration:underline}
+.term-in{display:flex;gap:8px;padding:0 16px 16px}
+.term-in span{color:var(--b)}
+.term-in input{flex:1;background:none;border:0;outline:0;color:#fff;font:inherit;caret-color:var(--b);cursor:none}
+@media (hover:none),(pointer:coarse){.term-in input{cursor:text}}
+
+/* CARDS (shared tilt + spotlight) */
+.tilt{--rx:0deg;--ry:0deg;--mx:50%;--my:50%;transform:perspective(900px) rotateX(var(--rx)) rotateY(var(--ry));transition:transform .15s ease-out,border-color .3s;position:relative;background:var(--card);border:1px solid var(--line);border-radius:20px;overflow:hidden}
+.tilt::before{content:"";position:absolute;inset:0;background:radial-gradient(380px circle at var(--mx) var(--my),rgba(124,92,255,.22),transparent 45%);opacity:0;transition:opacity .3s;pointer-events:none}
+.tilt:hover{border-color:#3a3a66}.tilt:hover::before{opacity:1}
+.tilt.leave{transition:transform .5s,border-color .3s}
+
+/* MINI */
+.mini-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:18px}
+.mini{padding:24px;display:flex;flex-direction:column;gap:12px;min-height:200px;text-align:left;width:100%}
+.mini .chips{margin-bottom:2px}
+.mini .ico{font-size:2rem;width:54px;height:54px;border-radius:14px;display:grid;place-items:center;background:rgba(124,92,255,.12);border:1px solid var(--line);transition:.4s}
+.mini:hover .ico{transform:rotate(-10deg) scale(1.12);background:var(--grad)}
+.mini h3{font-size:1.15rem}
+.mini p{color:var(--mute);font-size:.9rem;flex:1}
+.mbtns{display:flex;gap:8px;margin-top:4px}
+.mb{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:10px 12px;border-radius:12px;border:1px solid var(--line);font-size:.82rem;font-weight:600;transition:.25s;background:rgba(255,255,255,.02);position:relative;z-index:1}
+.mb svg{width:15px;height:15px;fill:currentColor}
+.mb:hover{border-color:var(--b);color:var(--b);transform:translateY(-2px)}
+.mb.live{background:var(--grad);border-color:transparent;color:#fff}
+.mb.live:hover{color:#fff;box-shadow:0 8px 22px -8px var(--a)}
+.mb.off{opacity:.35;cursor:not-allowed}
+.links a.live{background:var(--grad);border-color:transparent;color:#fff}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{font-family:var(--mono);font-size:.7rem;padding:4px 10px;border-radius:999px;border:1px solid var(--line);color:var(--mute);background:rgba(255,255,255,.02)}
+
+/* BIG */
+.big-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+@media(max-width:820px){.big-grid{grid-template-columns:1fr}}
+.big{padding:0;display:flex;flex-direction:column}
+.big .shot{height:210px;position:relative;overflow:hidden;border-bottom:1px solid var(--line);display:grid;place-items:center}
+.big .shot canvas,.big .shot svg{width:100%;height:100%;display:block}
+.big .shot .badge{position:absolute;top:14px;left:14px;font-family:var(--mono);font-size:.7rem;padding:5px 10px;border-radius:999px;background:rgba(0,0,0,.5);backdrop-filter:blur(6px);border:1px solid var(--line)}
+.big .body{padding:26px;display:flex;flex-direction:column;gap:14px;flex:1}
+.big h3{font-size:1.5rem;display:flex;justify-content:space-between;align-items:center}
+.big h3 .arrow{transition:.3s;font-size:1.2rem;color:var(--mute)}
+.big:hover h3 .arrow{transform:translate(4px,-4px);color:var(--b)}
+.big p{color:var(--mute);font-size:.96rem}
+.feat{list-style:none;display:grid;gap:6px;font-size:.88rem;color:#c2c2dc}
+.feat li::before{content:"→ ";color:var(--b)}
+.links{display:flex;gap:10px;margin-top:auto;padding-top:6px}
+.links a{font-size:.82rem;padding:8px 16px;border-radius:999px;border:1px solid var(--line);transition:.25s}
+.links a:hover{border-color:var(--b);color:var(--b)}
+
+/* DOMAINS */
+.dom-wrap{display:grid;grid-template-columns:260px 1fr;gap:28px}
+@media(max-width:820px){.dom-wrap{grid-template-columns:1fr}}
+.dom-list{display:flex;flex-direction:column;gap:10px}
+@media(max-width:820px){.dom-list{flex-direction:row;overflow-x:auto;padding-bottom:6px}}
+.dom-btn{display:flex;align-items:center;gap:12px;padding:14px 18px;border:1px solid var(--line);border-radius:14px;text-align:left;transition:.3s;background:var(--card);white-space:nowrap}
+.dom-btn:hover{transform:translateX(6px);border-color:#3a3a66}
+.dom-btn.on{background:var(--grad);border-color:transparent;transform:translateX(10px)}
+.dom-btn em{font-style:normal;font-size:1.3rem}
+.dom-panel{padding:34px;min-height:340px;display:flex;flex-direction:column;gap:20px}
+.dom-panel h3{font-size:1.8rem}
+.dom-panel p{color:var(--mute)}
+.skills{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-top:4px}
+.skill{position:relative;padding:16px 16px 14px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(160deg,rgba(124,92,255,.10),rgba(34,211,238,.03));transition:transform .3s cubic-bezier(.3,1.4,.5,1),border-color .3s,box-shadow .3s;animation:rise .5s both;overflow:hidden}
+.skill::after{content:"";position:absolute;inset:auto -30% -60% auto;width:90px;height:90px;border-radius:50%;background:var(--grad);opacity:.14;filter:blur(18px);transition:.4s}
+.skill:hover{transform:translateY(-6px) rotate(-1.5deg);border-color:var(--b);box-shadow:0 14px 34px -14px var(--a)}
+.skill:hover::after{opacity:.4;transform:scale(1.4)}
+.skill b{display:block;font-size:1.02rem;font-weight:600}
+.skill small{display:block;margin-top:2px;color:var(--mute);font-family:var(--mono);font-size:.7rem}
+.skill .sk-i{font-size:1.35rem;display:block;margin-bottom:8px}
+@keyframes rise{from{opacity:0;transform:translateY(14px) scale(.96)}}
+.dom-tags{display:flex;gap:8px;flex-wrap:wrap}
+.dom-tags .chip{font-size:.78rem;padding:6px 14px;transition:.25s}
+.dom-tags .chip:hover{color:#fff;border-color:var(--a);transform:translateY(-3px)}
+
+/* STACK ORBIT */
+.cloud{display:flex;flex-wrap:wrap;gap:10px;margin-top:40px}
+.cloud .chip{font-size:.85rem;padding:9px 16px;transition:.25s}
+.cloud .chip:hover{background:var(--grad);color:#fff;border-color:transparent;transform:scale(1.12) rotate(-3deg)}
+
+/* CONTACT */
+.contact{text-align:center;padding-bottom:80px}
+.contact h2{font-size:clamp(2.4rem,8vw,6rem);letter-spacing:-.04em;line-height:1}
+.contact .btn{margin-top:36px;font-size:1.1rem}
+footer{border-top:1px solid var(--line);padding:26px 6vw;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;color:var(--mute);font-size:.88rem;max-width:1280px;margin:auto}
+
+.toast{position:fixed;bottom:26px;left:50%;transform:translate(-50%,80px);background:var(--card);border:1px solid var(--a);padding:12px 22px;border-radius:999px;z-index:900;transition:.4s;font-size:.9rem}
+.toast.show{transform:translate(-50%,0)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<canvas id="bg"></canvas><div class="grain"></div>
+<div class="cursor"></div><div class="cursor-dot"></div><div id="progress"></div>
+
+<nav id="nav">
+  <a href="#hero" class="active">Home</a>
+  <a href="#mini">Mini</a>
+  <a href="#big">Projects</a>
+  <a href="#domains">Domains</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <p class="hello"><span class="wave">👋</span> Hello there, I'm</p>
+  <h1><span class="name" id="name"></span></h1>
+  <p class="role">I'm a <b id="typed"></b><span class="caret"></span></p>
+  <p class="sub" style="margin:18px 0 0">I build scalable backend systems &amp; REST APIs, deploy them to the cloud, and enjoy breaking things just to figure out how they work.</p>
+  <div class="cta">
+    <a href="#big" class="btn primary" data-magnet>See my work <span>↓</span></a>
+    <a href="#contact" class="btn" data-magnet>Let's talk</a>
+  </div>
+  <div class="socials">
+    <a href="https://github.com/Lynx-Mayank" target="_blank" rel="noopener" aria-label="GitHub" data-magnet><svg viewBox="0 0 24 24"><path d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.2-3.1-.1-.4-.5-1.6.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.7 1.6.2 2.8.1 3.2.8.8 1.2 1.9 1.2 3.1 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .5z"/></svg></a>
+    <a href="mailto:mayank.shanbhag@gmail.com" aria-label="Email" data-magnet><svg viewBox="0 0 24 24"><path d="M2 5v14h20V5H2zm18 2-8 5-8-5h16zM4 17V9l8 5 8-5v8H4z"/></svg></a>
+  </div>
+  <div class="scrollhint"><i></i> scroll</div>
+</section>
+
+<div class="marquee"><div class="track" id="track"></div></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <p class="eyebrow reveal">// about</p>
+  <h2 class="title reveal">Backend by <span class="grad">choice</span>.</h2>
+  <div class="about-grid">
+    <div class="reveal">
+      <div class="tabs" id="tabs"></div>
+      <div class="tabpanel" id="tabpanel"></div>
+      <div class="fun" id="fun">⚡ Fun fact: I enjoy turning ideas into working projects and breaking things just to figure out how they work 😄</div>
+    </div>
+    <div class="term reveal">
+      <div class="term-bar"><i></i><i></i><i></i><span>mayank@portfolio — zsh</span></div>
+      <div class="term-body" id="tbody"></div>
+      <div class="term-in"><span>❯</span><input id="tin" autocomplete="off" spellcheck="false" placeholder="type 'help'…" /></div>
+    </div>
+  </div>
+</section>
+
+<!-- MINI PROJECTS -->
+<section id="mini">
+  <p class="eyebrow reveal">// 01 — mini projects</p>
+  <h2 class="title reveal">Small tools, <span class="grad">sharp ideas</span>.</h2>
+  <p class="sub reveal">Quick builds that scratch an itch. Check the code on GitHub or try the live site.</p>
+  <div class="mini-grid" id="miniGrid"></div>
+</section>
+
+<!-- BIG PROJECTS -->
+<section id="big">
+  <p class="eyebrow reveal">// 02 — major projects</p>
+  <h2 class="title reveal">Bigger builds, <span class="grad">real systems</span>.</h2>
+  <p class="sub reveal">Full applications with data, APIs and the plumbing in between.</p>
+  <div class="big-grid" id="bigGrid"></div>
+</section>
+
+<!-- DOMAINS -->
+<section id="domains">
+  <p class="eyebrow reveal">// 03 — domains</p>
+  <h2 class="title reveal">Where I <span class="grad">operate</span>.</h2>
+  <p class="sub reveal">Pick a domain to see what I do there.</p>
+  <div class="dom-wrap reveal">
+    <div class="dom-list" id="domList"></div>
+    <div class="tilt dom-panel" id="domPanel"></div>
+  </div>
+  <div class="cloud reveal" id="cloud"></div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact">
+  <p class="eyebrow reveal">// 04 — contact</p>
+  <h2 class="reveal">Got an idea?<br><span class="grad">Let's build it.</span></h2>
+  <a class="btn primary reveal" href="mailto:mayank.shanbhag@gmail.com" data-magnet>Say hello ✉</a>
+  <div class="socials reveal" style="justify-content:center">
+    <a href="https://github.com/Lynx-Mayank" target="_blank" rel="noopener" aria-label="GitHub" data-magnet><svg viewBox="0 0 24 24"><path d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.2-3.1-.1-.4-.5-1.6.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.7 1.6.2 2.8.1 3.2.8.8 1.2 1.9 1.2 3.1 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .5z"/></svg></a>
+  </div>
+</section>
+<footer><span>© <span id="yr"></span> Mayank Shanbhag</span><span>Built with HTML, CSS &amp; a lot of JS ✦ <a href="#hero" style="color:var(--b)">back to top ↑</a></span></footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* =====================================================
+   EDIT YOUR CONTENT HERE
+   ===================================================== */
+const ME = {
+  name: "Mayank",
+  roles: ["Backend Developer","Python & FastAPI Engineer","REST API Architect","Cloud Learner (AWS · GCP)","Problem Solver"],
+  github: "https://github.com/Lynx-Mayank",
+  email: "mayank.shanbhag@gmail.com"
+};
+
+const ABOUT = {
+  "Building": "I'm currently working on backend development projects using Python, FastAPI, SQLAlchemy, and MySQL.",
+  "Learning": "Docker, Kubernetes, cloud technologies, and advanced backend development.",
+  "Looking for": "Collaboration on backend, web development and open-source projects — plus help with system design and scalable backend systems.",
+  "Ask me about": "Python, FastAPI, REST APIs, SQL, MySQL, and backend development."
+};
+
+const STACK = ["Python","FastAPI","Flask","SQLAlchemy","MySQL","PostgreSQL","MS SQL Server","Snowflake","REST APIs","AWS","Google Cloud","Render","Netlify","Gunicorn","Apache Tomcat","Docker","Kubernetes","Git","GitHub","C","C++","HTML5","React","Streamlit","Chart.js","NumPy","Pandas","Matplotlib","scikit-learn"];
+
+/* Mini projects — each gets two buttons: GitHub repo + live website.
+   Leave live:"" if there is no hosted site yet (button shows as disabled). */
+const MINI = [
+  { icon:"🔀", name:"Shuffle PDF", desc:"Merge PDFs and rearrange their pages right in the browser — no uploads, no sign-up.", tags:["HTML","JavaScript"], repo:"https://github.com/Lynx-Mayank/Shuffle-pdf", live:"https://shuffle-pdf.netlify.app/" },
+  { icon:"🔗", name:"URL Shortener", desc:"A Flask app that shortens long links via TinyURL and generates a downloadable QR code.", tags:["Python","Flask","QR"], repo:"https://github.com/Lynx-Mayank/URL-shortner", live:"https://url-shortner-uc5p.onrender.com/" },
+  { icon:"📡", name:"Morse Code Translator", desc:"Translate text to Morse code and back again.", tags:["Translator","Morse"], repo:"https://github.com/Lynx-Mayank?tab=repositories", live:"https://lynx-mayank.github.io/morse-code-translator/" },
+  { icon:"🔍", name:"Text Detection", desc:"Compares Tesseract, EasyOCR and AWS Textract, scoring each one's accuracy with Jaccard similarity.", tags:["Python","OCR","AWS Textract"], repo:"https://github.com/Lynx-Mayank/Text-Detection-System" },
+  // add more mini projects here ↓
+  // { icon:"🧮", name:"My Tool", desc:"What it does.", tags:["Python"], repo:"https://github.com/Lynx-Mayank/...", live:"https://..." },
+];
+
+/* Big projects */
+const BIG = [
+  { name:"Stock Screener", badge:"FinTech", hue:[124,92,255], viz:"chart",
+    desc:"A stock screening app to filter and analyse equities against custom criteria.",
+    feat:["Filter stocks by fundamentals & price action","Interactive charts and watchlists","Typed, component-driven TypeScript front-end"],
+    tags:["TypeScript","REST APIs","Charts"], repo:"https://github.com/himanshuj9/StockScreenerApp", live:"https://hmstock-screener.netlify.app/" },
+  { name:"SUKOON", badge:"Wellness", hue:[244,114,182], viz:"wave",
+    desc:"A calm digital space built for peace of mind and mental well-being.",
+    feat:["Soothing, distraction-free UI","Mindful tools in a single app","Fully responsive web experience"],
+    tags:["HTML","CSS","JavaScript"], repo:"https://github.com/Lynx-Mayank/SUKOON", live:"https://sukoon-n6nn.onrender.com/home" },
+  { name:"Resource Scaler", badge:"Cloud / Infra", hue:[34,211,238], viz:"bars",
+    desc:"Watches load and scales resources up or down automatically to keep systems efficient.",
+    feat:["Metrics-driven scaling decisions","Cloud-ready backend services","Cost-aware resource allocation"],
+    tags:["Python","FastAPI","AWS"], repo:"https://github.com/Lynx-Mayank?tab=repositories" },
+  { name:"Climate Shield", badge:"Open Source", hue:[74,222,128], viz:"nodes",
+    desc:"A climate-focused TypeScript project I contributed to via fork.",
+    feat:["Climate risk awareness tooling","Collaborative open-source workflow","TypeScript codebase"],
+    tags:["TypeScript","Open Source"], repo:"https://github.com/Lynx-Mayank/climate-shield", live:"https://climate-shield123.vercel.app/" },
+];
+
+/* Domains — each skill is [icon, name, small caption] */
+const DOMAINS = [
+  { e:"⚙️", n:"Backend", t:"Designing the engines behind apps.", d:"Clean, maintainable services with solid data modelling, validation, auth and error handling.",
+    s:[["🐍","Python","core language"],["⚡","FastAPI","async APIs"],["🧪","Flask","lightweight services"],["🔗","SQLAlchemy","ORM"],["🦄","Gunicorn","production server"],["☕","Apache Tomcat","Java apps"]] },
+  { e:"🔌", n:"REST APIs", t:"Interfaces other developers enjoy using.", d:"Resource-oriented design, sensible status codes, validation and clear docs.",
+    s:[["📐","API design","resources & routes"],["📘","OpenAPI / Swagger","documentation"],["🔐","Auth","tokens & sessions"],["📦","JSON","payload design"],["🔁","CRUD","clean endpoints"],["🧯","Error handling","consistent responses"]] },
+  { e:"☁️", n:"AWS", t:"Shipping to the cloud.", d:"Deploying backends on AWS and growing deeper into infrastructure and scaling patterns.",
+    s:[["🖥️","EC2","compute"],["🪣","S3","object storage"],["🗃️","RDS","managed databases"],["🛡️","IAM","access control"],["📄","Textract","document OCR"],["λ","Lambda","serverless"]] },
+  { e:"🌐", n:"GCP", t:"Google Cloud, hands-on.", d:"Using Google Cloud for hosting, storage and data workloads.",
+    s:[["🖥️","Compute Engine","VMs"],["🚀","Cloud Run","containers"],["🪣","Cloud Storage","buckets"],["📊","BigQuery","analytics"],["🧠","Colab","notebooks"]] },
+  { e:"🗄️", n:"Database (SQL)", t:"Data that stays consistent & fast.", d:"Relational modelling, joins, indexing and query tuning across the major SQL engines.",
+    s:[["🐬","MySQL","primary DB"],["🪟","MS SQL Server","T-SQL"],["🔴","Oracle","PL/SQL"],["🐘","PostgreSQL","relational"],["❄️","Snowflake","data warehouse"],["📈","Query tuning","indexes & plans"]] },
+  { e:"🐳", n:"DevOps", t:"Currently levelling up.", d:"Learning containers and orchestration to ship reliably and scale on demand.",
+    s:[["🐳","Docker","containers"],["☸️","Kubernetes","orchestration"],["🌍","Render","hosting"],["🔺","Netlify","static hosting"],["🌿","Git & GitHub","version control"]] },
+];
+
+/* =====================================================
+   ENGINE
+   ===================================================== */
+const $ = (s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const touch = matchMedia('(hover:none),(pointer:coarse)').matches;
+const reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
+$('#yr').textContent = new Date().getFullYear();
+const toast = m=>{const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('show'),2200)};
+const esc = s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* name letters */
+$('#name').innerHTML = [...ME.name+" Shanbhag"].map(c=>c===" "?" ":`<span>${c}</span>`).join("");
+
+/* typing */
+(function(){
+  const el=$('#typed'); let i=0,j=0,del=false;
+  (function tick(){
+    const w=ME.roles[i];
+    el.textContent=w.slice(0,j);
+    if(!del&&j===w.length){del=true;return setTimeout(tick,1500)}
+    if(del&&j===0){del=false;i=(i+1)%ME.roles.length}
+    j+=del?-1:1;
+    setTimeout(tick,del?35:70);
+  })();
+})();
+
+/* marquee */
+$('#track').innerHTML = [...STACK,...STACK].map(s=>`<span>${s}</span>`).join("");
+
+/* about tabs */
+(function(){
+  const tabs=$('#tabs'),panel=$('#tabpanel');
+  Object.keys(ABOUT).forEach((k,i)=>{
+    const b=document.createElement('button');b.className='tab'+(i?'':' on');b.textContent=k;
+    b.onclick=()=>{$$('.tab',tabs).forEach(x=>x.classList.remove('on'));b.classList.add('on');panel.style.animation='none';panel.offsetHeight;panel.style.animation='';panel.textContent=ABOUT[k]};
+    tabs.append(b);
+  });
+  panel.textContent=Object.values(ABOUT)[0];
+})();
+
+/* mini grid */
+$('#miniGrid').innerHTML = MINI.map((p,i)=>`
+  <article class="tilt mini reveal" style="transition-delay:${i*60}ms">
+    <div class="ico">${p.icon}</div>
+    <h3>${p.name}</h3>
+    <p>${p.desc}</p>
+    <div class="chips">${p.tags.map(t=>`<span class="chip">${t}</span>`).join("")}</div>
+    <div class="mbtns">
+      <a class="mb" href="${p.repo}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.2-3.1-.1-.4-.5-1.6.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.7 1.6.2 2.8.1 3.2.8.8 1.2 1.9 1.2 3.1 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .5z"/></svg>GitHub</a>
+      ${p.live?`<a class="mb live" href="${p.live}" target="_blank" rel="noopener">Live site ↗</a>`:`<span class="mb off" title="No hosted site yet">Live site</span>`}
+    </div>
+  </article>`).join("");
+
+/* big grid */
+const vizSVG = (type,[r,g,b])=>{
+  const c=`rgb(${r},${g},${b})`, id='g'+Math.random().toString(36).slice(2,7);
+  const defs=`<defs><linearGradient id="${id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${c}" stop-opacity=".55"/><stop offset="1" stop-color="#0b0b14"/></linearGradient></defs><rect width="400" height="210" fill="url(#${id})"/>`;
+  let body='';
+  if(type==='chart') body=`<polyline fill="none" stroke="${c}" stroke-width="3" points="0,160 40,140 80,150 120,100 160,115 200,70 240,90 280,45 320,60 360,25 400,40"><animate attributeName="stroke-dasharray" from="0 900" to="900 0" dur="2.2s" repeatCount="indefinite"/></polyline>`+[...Array(12)].map((_,i)=>`<rect x="${i*34+8}" y="${190-(i*7%50+20)}" width="16" height="${i*7%50+20}" fill="#fff" opacity=".12"/>`).join('');
+  if(type==='wave') body=[0,1,2].map(i=>`<path fill="none" stroke="#fff" stroke-opacity="${.5-i*.14}" stroke-width="2.5"><animate attributeName="d" dur="${5+i}s" repeatCount="indefinite" values="M0,${105+i*14} Q100,${55+i*10} 200,${105+i*14} T400,${105+i*14};M0,${105+i*14} Q100,${155-i*10} 200,${105+i*14} T400,${105+i*14};M0,${105+i*14} Q100,${55+i*10} 200,${105+i*14} T400,${105+i*14}"/></path>`).join('');
+  if(type==='bars') body=[...Array(9)].map((_,i)=>`<rect x="${i*42+22}" y="60" width="26" height="130" rx="5" fill="#fff" opacity=".85"><animate attributeName="y" values="${150-i*6};${40+i*8};${150-i*6}" dur="${2+i*.25}s" repeatCount="indefinite"/><animate attributeName="height" values="${40+i*6};${150-i*8};${40+i*6}" dur="${2+i*.25}s" repeatCount="indefinite"/></rect>`).join('');
+  if(type==='nodes'){const P=[[60,50],[160,140],[250,60],[340,150],[200,30],[320,50],[90,160]];
+    body=P.map((a,i)=>P.slice(i+1).map(b=>`<line x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}" stroke="#fff" stroke-opacity=".15"/>`).join('')).join('')+P.map((a,i)=>`<circle cx="${a[0]}" cy="${a[1]}" r="7" fill="#fff"><animate attributeName="r" values="5;11;5" dur="${2+i*.3}s" repeatCount="indefinite"/></circle>`).join('');}
+  return `<svg viewBox="0 0 400 210" preserveAspectRatio="xMidYMid slice">${defs}${body}</svg>`;
+};
+$('#bigGrid').innerHTML = BIG.map((p,i)=>`
+  <article class="tilt big reveal" style="transition-delay:${(i%2)*90}ms">
+    <div class="shot">${vizSVG(p.viz,p.hue)}<span class="badge">${p.badge}</span></div>
+    <div class="body">
+      <h3>${p.name}<span class="arrow">↗</span></h3>
+      <p>${p.desc}</p>
+      <ul class="feat">${p.feat.map(f=>`<li>${f}</li>`).join("")}</ul>
+      <div class="chips">${p.tags.map(t=>`<span class="chip">${t}</span>`).join("")}</div>
+      <div class="links"><a href="${p.repo}" target="_blank" rel="noopener">View code</a>${p.live?`<a class="live" href="${p.live}" target="_blank" rel="noopener">Live site ↗</a>`:""}</div>
+    </div>
+  </article>`).join("");
+
+/* domains */
+(function(){
+  const list=$('#domList'),panel=$('#domPanel');
+  list.innerHTML=DOMAINS.map((d,i)=>`<button class="dom-btn${i?'':' on'}" data-i="${i}"><em>${d.e}</em>${d.n}</button>`).join("");
+  function show(i){
+    const d=DOMAINS[i];
+    panel.innerHTML=`<h3>${d.e} ${d.n}</h3><p><b style="color:var(--text)">${d.t}</b> ${d.d}</p>
+      <div class="skills">${d.s.map(([i,n,c],k)=>`<div class="skill" style="animation-delay:${k*55}ms"><span class="sk-i">${i}</span><b>${n}</b><small>${c}</small></div>`).join("")}</div>`;
+  }
+  list.onclick=e=>{const b=e.target.closest('.dom-btn');if(!b)return;$$('.dom-btn',list).forEach(x=>x.classList.remove('on'));b.classList.add('on');show(+b.dataset.i)};
+  show(0);
+  $('#cloud').innerHTML=STACK.map(s=>`<span class="chip">${s}</span>`).join("");
+})();
+
+/* tilt + spotlight (delegated, works for dynamic cards) */
+document.addEventListener('pointermove',e=>{
+  const c=e.target.closest?.('.tilt'); if(!c||touch||reduce)return;
+  const r=c.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;
+  c.classList.remove('leave');
+  c.style.setProperty('--mx',x+'px');c.style.setProperty('--my',y+'px');
+  if(c.id==='domPanel'||c.classList.contains('dom-panel'))return;
+  c.style.setProperty('--rx',((y/r.height-.5)*-8)+'deg');
+  c.style.setProperty('--ry',((x/r.width-.5)*8)+'deg');
+});
+document.addEventListener('pointerout',e=>{
+  const c=e.target.closest?.('.tilt'); if(!c||c.contains(e.relatedTarget))return;
+  c.classList.add('leave');c.style.setProperty('--rx','0deg');c.style.setProperty('--ry','0deg');
+});
+
+/* magnetic buttons */
+$$('[data-magnet]').forEach(el=>{
+  if(touch)return;
+  el.addEventListener('pointermove',e=>{const r=el.getBoundingClientRect();el.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.25}px,${(e.clientY-r.top-r.height/2)*.35}px)`});
+  el.addEventListener('pointerleave',()=>el.style.transform='');
+});
+
+/* custom cursor */
+(function(){
+  if(touch)return;
+  const c=$('.cursor'),d=$('.cursor-dot');let x=0,y=0,cx=0,cy=0;
+  addEventListener('pointermove',e=>{x=e.clientX;y=e.clientY;d.style.left=x+'px';d.style.top=y+'px'});
+  (function loop(){cx+=(x-cx)*.18;cy+=(y-cy)*.18;c.style.left=cx+'px';c.style.top=cy+'px';requestAnimationFrame(loop)})();
+  document.addEventListener('pointerover',e=>{c.classList.toggle('hover',!!e.target.closest('a,button,.tab,input,textarea,.tilt'))});
+})();
+
+/* reveal + nav + progress */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+$$('.reveal').forEach(el=>io.observe(el));
+const secs=$$('section'),links=$$('#nav a');
+addEventListener('scroll',()=>{
+  const h=document.documentElement;
+  $('#progress').style.width=(scrollY/(h.scrollHeight-innerHeight)*100)+'%';
+  let cur=secs[0].id;secs.forEach(s=>{if(scrollY>=s.offsetTop-300)cur=s.id});
+  if(cur==='about')cur='hero';
+  links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+cur));
+},{passive:true});
+
+/* particle background reacting to mouse */
+(function(){
+  const cv=$('#bg'),ctx=cv.getContext('2d');let W,H,P=[],m={x:-999,y:-999};
+  const N=()=>Math.min(110,Math.floor(innerWidth*innerHeight/14000));
+  function size(){W=cv.width=innerWidth;H=cv.height=innerHeight;P=[...Array(N())].map(()=>({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.35}))}
+  size();addEventListener('resize',size);
+  addEventListener('pointermove',e=>{m.x=e.clientX;m.y=e.clientY});
+  addEventListener('click',e=>{P.forEach(p=>{const dx=p.x-e.clientX,dy=p.y-e.clientY,d=Math.hypot(dx,dy)||1;if(d<260){p.vx+=dx/d*3;p.vy+=dy/d*3}})});
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    P.forEach((p,i)=>{
+      p.vx*=.985;p.vy*=.985;if(Math.abs(p.vx)<.12)p.vx+=(Math.random()-.5)*.02;if(Math.abs(p.vy)<.12)p.vy+=(Math.random()-.5)*.02;
+      p.x+=p.vx;p.y+=p.vy;
+      if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1;
+      const dm=Math.hypot(p.x-m.x,p.y-m.y);
+      if(dm<150){p.x+=(p.x-m.x)*.015;p.y+=(p.y-m.y)*.015}
+      ctx.beginPath();ctx.arc(p.x,p.y,1.6,0,6.3);ctx.fillStyle=dm<150?'#22d3ee':'rgba(160,160,220,.6)';ctx.fill();
+      for(let j=i+1;j<P.length;j++){const q=P[j],d=Math.hypot(p.x-q.x,p.y-q.y);if(d<120){ctx.strokeStyle=`rgba(124,92,255,${(1-d/120)*.35})`;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);ctx.stroke()}}
+      if(dm<170){ctx.strokeStyle=`rgba(34,211,238,${(1-dm/170)*.6})`;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(m.x,m.y);ctx.stroke()}
+    });
+    requestAnimationFrame(draw);
+  }
+  if(!reduce)draw();
+})();
+
+/* =====================================================
+   TERMINAL
+   ===================================================== */
+(function(){
+  const body=$('#tbody'),inp=$('#tin');const hist=[];let hi=0;
+  const out=(h,c='')=>{const d=document.createElement('div');d.className='ln '+c;d.innerHTML=h;body.append(d);body.scrollTop=body.scrollHeight};
+  const go=id=>{document.getElementById(id).scrollIntoView({behavior:'smooth'})};
+  const cmds={
+    help:()=>out(`<span class="y">Available commands</span>
+  about      who I am
+  skills     my tech stack
+  projects   list everything I've built
+  github     open my GitHub
+  contact    ways to reach me
+  goto &lt;mini|big|domains|contact&gt;
+  theme &lt;violet|cyan|pink|green&gt;
+  matrix     ...you'll see
+  clear      clean the screen`),
+    about:()=>out(`Hi, I'm <span class="g">Mayank Shanbhag</span> — a backend developer working with Python, FastAPI, SQLAlchemy and MySQL, learning Docker, Kubernetes and cloud.`),
+    skills:()=>out(STACK.map(s=>`<span class="p">${s}</span>`).join(' · ')),
+    projects:()=>{out('<span class="y">Mini</span>');MINI.forEach(p=>out(`  ${p.icon} ${p.name}`));out('<span class="y">Major</span>');BIG.forEach(p=>out(`  🚀 ${p.name}`))},
+    github:()=>{out(`Opening <a href="${ME.github}" target="_blank" rel="noopener">${ME.github}</a> …`);open(ME.github,'_blank')},
+    contact:()=>out(`✉  <a href="mailto:${ME.email}">${ME.email}</a>\n🐙 <a href="${ME.github}" target="_blank" rel="noopener">github.com/Lynx-Mayank</a>`),
+    clear:()=>body.innerHTML='',
+    ls:()=>out('mini/  big/  domains/  contact/'),
+    whoami:()=>out('a developer who breaks things to understand them 😄'),
+    sudo:()=>out('nice try. 🙃','y'),
+    goto:a=>{const m={mini:'mini',big:'big',projects:'big',domains:'domains',contact:'contact'}[a[0]];m?(out(`→ scrolling to ${a[0]}`,'g'),go(m)):out('usage: goto &lt;mini|big|domains|contact&gt;','y')},
+    theme:a=>{const t={violet:['#7c5cff','#22d3ee'],cyan:['#22d3ee','#4ade80'],pink:['#f472b6','#fbbf24'],green:['#4ade80','#22d3ee']}[a[0]];
+      if(!t)return out('usage: theme &lt;violet|cyan|pink|green&gt;','y');
+      document.documentElement.style.setProperty('--a',t[0]);document.documentElement.style.setProperty('--b',t[1]);out(`theme → ${a[0]}`,'g')},
+    matrix:()=>{out('wake up, Mayank…','g');matrix()}
+  };
+  out('Last login: '+new Date().toDateString()+' on console','m');
+  out("Welcome! Type <span class='g'>help</span> to see what I can do.");
+  inp.addEventListener('keydown',e=>{
+    if(e.key==='Enter'){
+      const v=inp.value.trim();if(!v)return;hist.push(v);hi=hist.length;inp.value='';
+      out(`<span class="p">❯</span> ${esc(v)}`);
+      const [c,...a]=v.toLowerCase().split(/\s+/);
+      cmds[c]?cmds[c](a):out(`command not found: ${esc(c)} — try <span class="g">help</span>`,'y');
+    }else if(e.key==='ArrowUp'){if(hi>0)inp.value=hist[--hi];e.preventDefault()}
+    else if(e.key==='ArrowDown'){inp.value=hist[++hi]||'';if(hi>hist.length)hi=hist.length}
+    else if(e.key==='Tab'){e.preventDefault();const m=Object.keys(cmds).find(k=>k.startsWith(inp.value.toLowerCase())&&inp.value);if(m)inp.value=m}
+  });
+  $('.term').addEventListener('click',()=>inp.focus());
+
+  function matrix(){
+    const cv=document.createElement('canvas');Object.assign(cv.style,{position:'fixed',inset:0,zIndex:800,background:'#000',cursor:'pointer'});
+    cv.width=innerWidth;cv.height=innerHeight;document.body.append(cv);
+    const x=cv.getContext('2d'),cols=Math.floor(cv.width/16),dr=Array(cols).fill(1);
+    const iv=setInterval(()=>{x.fillStyle='rgba(0,0,0,.08)';x.fillRect(0,0,cv.width,cv.height);x.fillStyle='#4ade80';x.font='16px monospace';
+      dr.forEach((y,i)=>{x.fillText(String.fromCharCode(0x30A0+Math.random()*96),i*16,y*16);dr[i]=y*16>cv.height&&Math.random()>.975?0:y+1})},40);
+    const stop=()=>{clearInterval(iv);cv.remove()};cv.onclick=stop;setTimeout(stop,6000);toast('Click anywhere to exit');
+  }
+})();
+
+</script>
+</body>
+</html>
