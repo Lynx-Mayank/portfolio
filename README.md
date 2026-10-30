@@ -2,7 +2,7 @@
 
 My personal portfolio: a backend developer's corner of the internet, with interactive project blocks, a terminal you can type into, and a particle background that reacts to your mouse.
 
-🌐 **Live site:** <[your-portfolio-url](https://lynx-mayank.github.io/portfolio/)>
+🌐 **Live site:** <[Mayank Shanbhag Portfolio](https://lynx-mayank.github.io/portfolio/)>
 
 ![Portfolio screenshot](./screenshot.png)
 
